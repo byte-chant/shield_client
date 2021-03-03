@@ -16,7 +16,7 @@ public class ServerSocketTest {
         //参考博客：https://www.yiibai.com/java/java_networking.html
         byte[] uuidBytes = UUID.randomUUID().toString().replace("-", "").getBytes(StandardCharsets.UTF_8);
         byte[] bodyBytes = "hello".getBytes(StandardCharsets.UTF_8);
-        Integer contentLength = 2/*魔数*/ + 1/*协议版本*/ + 1/*上行下行*/ + uuidBytes.length + bodyBytes.length;
+        Integer contentLength = 2/*魔数*/ + 2/*业务类型*/ + uuidBytes.length + bodyBytes.length;
         Integer totalLength = 4/*用来存储contentLength的整型，这个整型本身占用的长度*/ + contentLength;
         dataOutputStream.writeInt(contentLength);
         dataOutputStream.writeShort(9527);
