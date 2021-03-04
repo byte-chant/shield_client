@@ -1,4 +1,4 @@
-package org.heimdall.shield_server.network;
+package org.heimdall.shield_client.network;
 
 public interface Transport {
 

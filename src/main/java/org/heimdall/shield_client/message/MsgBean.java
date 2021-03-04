@@ -1,4 +1,4 @@
-package org.heimdall.shield_server.message;
+package org.heimdall.shield_client.message;
 
 import java.util.Arrays;
 

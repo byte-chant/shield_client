@@ -1,13 +1,13 @@
-package org.heimdall.shield_server;
+package org.heimdall.shield_client;
 
-import org.heimdall.shield_server.config.ConfigManager;
-import org.heimdall.shield_server.network.NetworkBuilder;
+import org.heimdall.shield_client.config.ConfigManager;
+import org.heimdall.shield_client.network.NetworkBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ShieldServer {
+public class ShieldClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(ShieldServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShieldClient.class);
 
     public void start(){
         initConfig();
