@@ -2,7 +2,6 @@ package org.heimdall.shield_client.network;
 
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCounted;
@@ -10,15 +9,6 @@ import org.heimdall.shield_client.message.MsgBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.SocketAddress;
-
-/**
- * 可以给ChannelHandler加上@Sharable注解
- * 此后所有因新连接而创建的Channel都共享这个Handler
- * 这意味着，该Handler会被任意Channel的事件触发。
- * 因此此时Channel应该是无状态的，否则会有线程安全问题
- */
-@ChannelHandler.Sharable
 public class MsgToBeanHandler extends SimpleChannelInboundHandler<Object> {
 
     private static final Logger logger = LoggerFactory.getLogger(MsgToBeanHandler.class);
