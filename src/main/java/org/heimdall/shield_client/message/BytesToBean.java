@@ -2,7 +2,7 @@ package org.heimdall.shield_client.message;
 
 import java.util.Arrays;
 
-public class MsgBean {
+public class BytesToBean {
 
     private Integer length;
 
@@ -14,7 +14,7 @@ public class MsgBean {
 
     private String body;
 
-    public MsgBean(byte[] bytes){
+    public BytesToBean(byte[] bytes){
         //需要留意客户端与服务端，在将消息转为字节流时，字符编码问题。
         //协议行首的计算length时用的字符编码，务必要和写到socket时的字符编码一致，不然会出现接收不完整问题。
         length = ((bytes[0] & 0xFF) << 24) | ((bytes[1] & 0xFF) << 16) | ((bytes[2] & 0xFF) << 8) | (bytes[3] & 0xFF);

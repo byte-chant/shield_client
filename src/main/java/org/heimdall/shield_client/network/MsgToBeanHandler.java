@@ -5,7 +5,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCounted;
-import org.heimdall.shield_client.message.MsgBean;
+import org.heimdall.shield_client.message.BytesToBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,7 @@ public class MsgToBeanHandler extends SimpleChannelInboundHandler<Object> {
         byte[] bytes = new byte[((ByteBuf)msg).readableBytes()];
         ((ByteBuf)msg).readBytes(bytes);
         if(isValidMessage(bytes)){
-            MsgBean msgBean = new MsgBean(bytes);
+            BytesToBean bytesToBean = new BytesToBean(bytes);
         }else{
             logger.error("消息格式不合法，直接丢弃消息。消息长度{},魔数{}", bytes.length, (short)(((bytes[4] & 0xFF) << 8) | (bytes[5] & 0xFF)));
         }
