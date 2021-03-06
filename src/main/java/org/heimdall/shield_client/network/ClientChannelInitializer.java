@@ -11,5 +11,6 @@ public class ClientChannelInitializer extends ChannelInitializer<SocketChannel> 
         ChannelPipeline channelPipeline = socketChannel.pipeline();
         channelPipeline.addLast("decoder", new LengthFieldBasedFrameDecoder(3 * 1024 * 1024, 0, 4));
         channelPipeline.addLast(new MsgToBeanHandler());
+        channelPipeline.addLast(new BusinessLogicHandler());
     }
 }

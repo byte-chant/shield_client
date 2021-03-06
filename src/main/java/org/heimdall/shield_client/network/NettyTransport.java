@@ -1,6 +1,7 @@
 package org.heimdall.shield_client.network;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -14,6 +15,8 @@ import java.net.InetSocketAddress;
 public class NettyTransport implements Transport {
 
     private static final Logger logger = LoggerFactory.getLogger(NettyTransport.class);
+
+    private Channel channel;
 
     private EventLoopGroup eventLoopGroup;
 
@@ -39,10 +42,14 @@ public class NettyTransport implements Transport {
         //故此处不必像《Netty实战》中那样，调用channelFuture.channel().closeFuture().sync()来阻塞主线程
         //通过closeFuture().sync()来阻塞主线程，会在调用channel.close()的时候，被唤醒。
         //相关链接：https://segmentfault.com/q/1010000009070241、https://www.cnblogs.com/heroinss/p/9990445.html、https://www.cnblogs.com/crazymakercircle/p/9902400.html
+        channel = channelFuture.channel();
     }
 
     public void stop() {
         try {
+            if (channel != null) {
+                channel.close().sync();
+            }
             if (eventLoopGroup != null) {
                 eventLoopGroup.shutdownGracefully().sync();
             }
