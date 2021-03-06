@@ -3,10 +3,12 @@ package org.heimdall.shield_client.network;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.heimdall.shield_client.config.ConfigManager;
+import org.heimdall.shield_client.message.BeanToBytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +44,12 @@ public class NettyTransport implements Transport {
         //故此处不必像《Netty实战》中那样，调用channelFuture.channel().closeFuture().sync()来阻塞主线程
         //通过closeFuture().sync()来阻塞主线程，会在调用channel.close()的时候，被唤醒。
         //相关链接：https://segmentfault.com/q/1010000009070241、https://www.cnblogs.com/heroinss/p/9990445.html、https://www.cnblogs.com/crazymakercircle/p/9902400.html
+        channelFuture.addListener(new ChannelFutureListener() {
+            public void operationComplete(ChannelFuture future) throws Exception {
+                //套接字刚建立的时候，发送一个ping，等待服务器返回一个pong
+                future.channel().writeAndFlush(new BeanToBytes((short)1, "ping"));
+            }
+        });
         channel = channelFuture.channel();
     }
 
