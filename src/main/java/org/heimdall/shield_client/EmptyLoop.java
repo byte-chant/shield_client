@@ -1,4 +1,4 @@
-package org.heimdall.shield_client.config;
+package org.heimdall.shield_client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
