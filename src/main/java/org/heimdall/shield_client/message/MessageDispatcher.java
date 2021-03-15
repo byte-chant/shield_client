@@ -1,5 +1,6 @@
 package org.heimdall.shield_client.message;
 
+import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
 import org.slf4j.Logger;
@@ -26,8 +27,12 @@ public class MessageDispatcher {
         return instance;
     }
 
-    public void dispatchMessage(Channel channel, Object message){
-
+    public void dispatchMessage(Channel channel, Object message) throws Exception {
+        OutboundMessage outboundMessage = (OutboundMessage) message;
+        if(outboundMessage.getType().equals(1)){
+            PingPongExecutor pingPongExecutor = PingPongExecutor.class.newInstance();
+            pingPongExecutor.exec(outboundMessage.getBody());
+        }
     }
 
 }
