@@ -8,7 +8,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.heimdall.shield_client.config.ConfigManager;
-import org.heimdall.shield_client.message.BeanToBytes;
+import org.heimdall.shield_client.message.OutboundMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +47,7 @@ public class NettyTransport implements Transport {
         channelFuture.addListener(new ChannelFutureListener() {
             public void operationComplete(ChannelFuture future) throws Exception {
                 //套接字刚建立的时候，发送一个ping，等待服务器返回一个pong
-                future.channel().writeAndFlush(new BeanToBytes((short)1, "ping"));
+                future.channel().writeAndFlush(new OutboundMessage((short)1, "ping"));
             }
         });
         channel = channelFuture.channel();

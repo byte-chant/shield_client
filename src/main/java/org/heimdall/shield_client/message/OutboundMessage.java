@@ -2,7 +2,7 @@ package org.heimdall.shield_client.message;
 
 import java.util.UUID;
 
-public class BeanToBytes {
+public class OutboundMessage {
 
     private Integer length;
 
@@ -14,14 +14,54 @@ public class BeanToBytes {
 
     private String body;
 
-    public BeanToBytes(Short type, String body){
+    public OutboundMessage(Short type, String body){
         this((short)(9527), type, UUID.randomUUID().toString().replace("-", ""), body);
     }
 
-    public BeanToBytes(Short magic, Short type, String uuid, String body){
+    public OutboundMessage(Short magic, Short type, String uuid, String body){
         this.magic = magic;
         this.type = type;
         this.uuid = uuid;
+        this.body = body;
+    }
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public Short getMagic() {
+        return magic;
+    }
+
+    public void setMagic(Short magic) {
+        this.magic = magic;
+    }
+
+    public Short getType() {
+        return type;
+    }
+
+    public void setType(Short type) {
+        this.type = type;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
         this.body = body;
     }
 
